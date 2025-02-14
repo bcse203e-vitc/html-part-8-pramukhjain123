@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title>Table Generator</title>
+</head>
+
+<body>
+    <div>
+        Rows: <input type="number" id="rows" />
+        Columns: <input type="number" id="columns" />
+        <button onclick="generateTable()">Generate Table</button>
+    </div>
+    <div id="tableContainer"></div>
+
+    <script>
+        function generateTable() {
+            let rows = document.getElementById('rows').value;
+            let columns = document.getElementById('columns').value;
+            let tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+
+            let table = document.createElement('table');
+            for (let i = 0; i < rows; i++) {
+                let tr = document.createElement('tr');
+                for (let j = 0; j < columns; j++) {
+                    let td = document.createElement('td');
+                    let input = document.createElement('input');
+                    td.appendChild(input);
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+            tableContainer.appendChild(table);
+        }
+    </script>
+</body>
+
+</html>
