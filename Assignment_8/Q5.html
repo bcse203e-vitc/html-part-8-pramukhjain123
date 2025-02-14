@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter with Highlighted Repeated Words</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+        }
+        .word-count {
+            margin-top: 10px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Word Counter with Highlighted Repeated Words</h2>
+<textarea id="textArea" placeholder="Start typing..."></textarea>
+<div class="word-count">
+    <span id="wordCount">Word Count: 0</span>
+</div>
+
+<script>
+    const textArea = document.getElementById('textArea');
+    const wordCountDisplay = document.getElementById('wordCount');
+
+    textArea.addEventListener('input', function() {
+        const text = textArea.value.trim();
+        const words = text.split(/\s+/).filter(word => word.length > 0);
+        const wordCount = words.length;
+        
+        wordCountDisplay.textContent = `Word Count: ${wordCount}`;
+        highlightRepeatedWords(words);
+    });
+
+    function highlightRepeatedWords(words) {
+        const wordFrequency = {};
+        const highlightedWords = [];
+
+        words.forEach(word => {
+            wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+        });
+
+        const uniqueWords = Array.from(new Set(words));
+
+        let formattedText = '';
+        uniqueWords.forEach(word => {
+            if (wordFrequency[word] > 1) {
+                formattedText += `<span class="highlight">${word}</span> `;
+            } else {
+                formattedText += `${word} `;
+            }
+        });
+
+        textArea.innerHTML = formattedText.trim();
+    }
+</script>
+
+</body>
+</html>
